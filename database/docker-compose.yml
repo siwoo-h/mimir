@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  database:
+    image: mysql:8
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/conf:/etc/mysql/conf.d
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpw
+      MYSQL_DATABASE: dev
+      MYSQL_USER: mimir
+      MYSQL_PASSWORD: mimirpw
+    restart: always
