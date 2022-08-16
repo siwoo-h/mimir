@@ -40,3 +40,4 @@ mysql
 # documentation
 documentation/*
 !documentation/README.md
+!documentation/design/*
