@@ -31,7 +31,7 @@ export class Article {
   updated_at?: Date;
 
   @Property({ hidden: true })
-  disabled_at?: Date;
+  deleted_at?: Date;
 
   @ManyToOne({
     serializer: (value) => value.id,
