@@ -1,8 +1,16 @@
+import { Options } from '@mikro-orm/core';
 import { Article } from './entities/article.entity';
+import { Comment } from './entities/comment.entity';
 import { User } from './entities/user.entity';
 
-export default {
-  entities: [User, Article, Comment], // no need for `entitiesTs` this way
-  dbName: 'mimir',
-  type: 'mysql', // one of `mongo` | `mysql` | `mariadb` | `postgresql` | `sqlite`
+const options: Options = {
+  entities: [User, Article, Comment],
+  type: 'mysql',
+  dbName: 'dev',
+  debug: true,
+  port: 3306,
+  user: 'mimir',
+  password: 'mimirpw',
 };
+
+export default options;
