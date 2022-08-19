@@ -5,21 +5,21 @@ export class User {
   @PrimaryKey({ type: BigIntType })
   id: string;
 
-  @Property({ persist: false, unique: true }) // Similar to class-transformer's `@Expose()`. Will only exist in memory, and will be serialized.
+  @Property({ unique: true })
   email: string;
 
-  @Property({ persist: false, unique: true }) // Similar to class-transformer's `@Expose()`. Will only exist in memory, and will be serialized.
+  @Property({ unique: true })
   nickname: string;
 
-  @Property({ persist: false }) // Similar to class-transformer's `@Expose()`. Will only exist in memory, and will be serialized.
+  @Property()
   password: string;
 
-  @Property({ hidden: true }) // Equivalent of class-transformer's `@Exclude`
+  @Property({ hidden: true })
   registered_at = Date.now();
 
-  @Property({ hidden: true }) // Equivalent of class-transformer's `@Exclude`
+  @Property({ hidden: true })
   updated_at?: Date;
 
-  @Property({ hidden: true }) // Equivalent of class-transformer's `@Exclude`
+  @Property({ hidden: true })
   disabled_at?: Date;
 }

@@ -13,7 +13,7 @@ export class Comment {
   @PrimaryKey({ type: BigIntType })
   id: string;
 
-  @Property({ persist: false })
+  @Property()
   content: string;
 
   @Property({ hidden: true })

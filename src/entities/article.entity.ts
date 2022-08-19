@@ -12,16 +12,16 @@ export class Article {
   @PrimaryKey({ type: BigIntType })
   id: string;
 
-  @Property({ persist: false })
+  @Property()
   title: string;
 
-  @Property({ persist: false })
+  @Property()
   content: string;
 
-  @Property({ persist: false, default: false })
+  @Property({ default: false })
   is_private: boolean;
 
-  @Property({ persist: false, default: 0 })
+  @Property({ default: 0 })
   view_count: number;
 
   @Property({ hidden: true })
