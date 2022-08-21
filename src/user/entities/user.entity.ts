@@ -3,23 +3,31 @@ import { BigIntType, Entity, PrimaryKey, Property } from '@mikro-orm/core';
 @Entity()
 export class User {
   @PrimaryKey({ type: BigIntType })
-  id: string;
+  private id!: string;
 
   @Property({ unique: true })
-  email: string;
+  private email!: string;
 
   @Property({ unique: true })
-  nickname: string;
+  private nickname!: string;
 
   @Property()
-  password: string;
+  private password!: string;
 
   @Property({ hidden: true })
-  registered_at = Date.now();
+  private registered_at: Date = new Date();
+
+  @Property({ hidden: true, onUpdate: () => new Date() })
+  private updated_at: Date = new Date();
 
   @Property({ hidden: true })
-  updated_at?: Date;
+  private disabled_at?: Date;
 
-  @Property({ hidden: true })
-  disabled_at?: Date;
+  constructor(partial: Partial<User>) {
+    Object.assign(this, partial);
+  }
+
+  get(): User {
+    return this;
+  }
 }
