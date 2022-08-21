@@ -6,7 +6,7 @@ create table user
     email         varchar(255) not null,
     nickname      varchar(255) not null,
     password      varchar(255) not null,
-    registered_at json         not null,
+    registered_at datetime     not null,
     updated_at    datetime     not null,
     disabled_at   datetime     not null,
     constraint user_email_unique
@@ -42,7 +42,7 @@ create table comment
     id         bigint unsigned auto_increment
         primary key,
     content    varchar(255)    not null,
-    created_at json            not null,
+    created_at datetime        not null,
     updated_at datetime        not null,
     deleted_at datetime        not null,
     user_id    bigint unsigned not null,
