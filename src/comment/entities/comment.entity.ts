@@ -11,19 +11,19 @@ import { User } from '../../user/entities/user.entity';
 @Entity()
 export class Comment {
   @PrimaryKey({ type: BigIntType })
-  id: string;
+  private id!: string;
 
   @Property()
-  content: string;
+  private content!: string;
 
   @Property({ hidden: true })
-  created_at = Date.now();
+  private created_at: Date = new Date();
+
+  @Property({ hidden: true, onUpdate: () => new Date() })
+  private updated_at: Date = new Date();
 
   @Property({ hidden: true })
-  updated_at?: Date;
-
-  @Property({ hidden: true })
-  deleted_at?: Date;
+  private deleted_at?: Date;
 
   @ManyToOne({
     serializer: (value) => value.id,
@@ -36,4 +36,12 @@ export class Comment {
     serializedName: 'article_id',
   }) // Equivalent of class-transformer's `@Transform()`
   article: Article;
+
+  constructor(partial: Partial<Comment>) {
+    Object.assign(this, partial);
+  }
+
+  get(): Comment {
+    return this;
+  }
 }
