@@ -1,7 +1,7 @@
 import { Options } from '@mikro-orm/core';
 import { Article } from './article/entities/article.entity';
 import { Comment } from './entities/comment.entity';
-import { User } from './entities/user.entity';
+import { User } from './user/entities/user.entity';
 
 const options: Options = {
   entities: [User, Article, Comment],
