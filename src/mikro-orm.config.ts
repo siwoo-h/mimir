@@ -1,5 +1,5 @@
 import { Options } from '@mikro-orm/core';
-import { Article } from './entities/article.entity';
+import { Article } from './article/entities/article.entity';
 import { Comment } from './entities/comment.entity';
 import { User } from './entities/user.entity';
 
