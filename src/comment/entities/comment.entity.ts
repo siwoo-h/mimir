@@ -5,8 +5,8 @@ import {
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
-import { Article } from '../article/entities/article.entity';
-import { User } from '../user/entities/user.entity';
+import { Article } from '../../article/entities/article.entity';
+import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class Comment {
