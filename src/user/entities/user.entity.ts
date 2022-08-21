@@ -20,7 +20,7 @@ export class User {
   @Property({ hidden: true, onUpdate: () => new Date() })
   private updated_at: Date = new Date();
 
-  @Property({ hidden: true })
+  @Property({ hidden: true, nullable: true })
   private disabled_at?: Date;
 
   constructor(partial: Partial<User>) {

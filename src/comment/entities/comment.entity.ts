@@ -1,10 +1,4 @@
-import {
-  BigIntType,
-  Entity,
-  ManyToOne,
-  PrimaryKey,
-  Property,
-} from '@mikro-orm/core';
+import { BigIntType, Entity, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core';
 import { Article } from '../../article/entities/article.entity';
 import { User } from '../../user/entities/user.entity';
 
@@ -22,7 +16,7 @@ export class Comment {
   @Property({ hidden: true, onUpdate: () => new Date() })
   private updated_at: Date = new Date();
 
-  @Property({ hidden: true })
+  @Property({ hidden: true, nullable: true })
   private deleted_at?: Date;
 
   @ManyToOne({
