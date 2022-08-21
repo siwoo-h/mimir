@@ -30,7 +30,7 @@ export class Article {
   @Property({ hidden: true, onUpdate: () => new Date() })
   private updated_at: Date = new Date();
 
-  @Property({ hidden: true, default: null })
+  @Property({ hidden: true })
   private deleted_at?: Date;
 
   @ManyToOne({
