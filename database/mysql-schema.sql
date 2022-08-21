@@ -1,14 +1,13 @@
 -- USER table
 create table user
 (
-    id            bigint unsigned auto_increment
-        primary key,
+    id            binary(16)   not null primary key,
     email         varchar(255) not null,
     nickname      varchar(255) not null,
     password      varchar(255) not null,
     registered_at datetime     not null,
     updated_at    datetime     not null,
-    disabled_at   datetime     not null,
+    disabled_at   datetime     null,
     constraint user_email_unique
         unique (email),
     constraint user_nickname_unique
@@ -18,35 +17,33 @@ create table user
 -- ARTICLE table
 create table article
 (
-    id         bigint unsigned auto_increment
-        primary key,
-    title      varchar(255)         not null,
-    content    varchar(255)         not null,
-    is_private tinyint(1) default 0 not null,
-    view_count int        default 0 not null,
-    created_at datetime             not null,
-    updated_at datetime             not null,
-    deleted_at datetime             not null,
-    user_id    bigint unsigned      not null,
+    id         int  unsigned    not null    auto_increment  primary key,
+    title      varchar(255)     not null,
+    content    text             null,
+    is_private tinyint(1)       not null    default 0,
+    view_count int  unsigned    not null    default 0,
+    created_at datetime         not null,
+    updated_at datetime         not null,
+    deleted_at datetime         null,
+    user_id    binary(16)       not null,
+    constraint user_id_title_unique
+        unique (user_id, title),
     constraint article_user_id_foreign
         foreign key (user_id) references user (id)
             on update cascade
 );
 
-create index article_user_id_index
-    on article (user_id);
 
 -- COMMENT table
 create table comment
 (
-    id         bigint unsigned auto_increment
-        primary key,
+    id         int  unsigned   not null    auto_increment  primary key,
     content    varchar(255)    not null,
     created_at datetime        not null,
     updated_at datetime        not null,
-    deleted_at datetime        not null,
-    user_id    bigint unsigned not null,
-    article_id bigint unsigned not null,
+    deleted_at datetime        null,
+    user_id    binary(16)      not null,
+    article_id int unsigned    not null,
     constraint comment_article_id_foreign
         foreign key (article_id) references article (id)
             on update cascade,
@@ -54,10 +51,4 @@ create table comment
         foreign key (user_id) references user (id)
             on update cascade
 );
-
-create index comment_article_id_index
-    on comment (article_id);
-
-create index comment_user_id_index
-    on comment (user_id);
 
