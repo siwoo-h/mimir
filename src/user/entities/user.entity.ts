@@ -1,17 +1,17 @@
-import { BigIntType, Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import { Entity, PrimaryKey, Property, types } from '@mikro-orm/core';
 
 @Entity()
 export class User {
-  @PrimaryKey({ type: BigIntType })
+  @PrimaryKey({ type: types.uuid, nullable: false })
   private id!: string;
 
-  @Property({ unique: true })
+  @Property({ type: types.string, length: 255, unique: true })
   private email!: string;
 
-  @Property({ unique: true })
+  @Property({ type: types.string, length: 255, unique: true })
   private nickname!: string;
 
-  @Property()
+  @Property({ type: types.string, length: 255 })
   private password!: string;
 
   @Property({ hidden: true })

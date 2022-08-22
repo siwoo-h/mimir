@@ -1,21 +1,21 @@
-import { BigIntType, Entity, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core';
+import { BigIntType, Entity, ManyToOne, PrimaryKey, Property, types } from '@mikro-orm/core';
 import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class Article {
-  @PrimaryKey({ type: BigIntType })
-  private id!: string;
+  @PrimaryKey({ type: types.integer, unsigned: true, nullable: false })
+  private id!: number;
 
-  @Property()
+  @Property({ type: types.string, length: 255 })
   private title!: string;
 
-  @Property()
-  private content!: string;
+  @Property({ type: types.text, nullable: true })
+  private content?: string;
 
-  @Property({ default: false })
+  @Property({ type: types.tinyint, length: 1, default: false })
   private is_private!: boolean;
 
-  @Property({ default: 0 })
+  @Property({ type: types.integer, unsigned: true, default: 0 })
   private view_count!: number;
 
   @Property({ hidden: true })

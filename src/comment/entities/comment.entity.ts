@@ -1,13 +1,13 @@
-import { BigIntType, Entity, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core';
+import { BigIntType, Entity, ManyToOne, PrimaryKey, Property, types } from '@mikro-orm/core';
 import { Article } from '../../article/entities/article.entity';
 import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class Comment {
-  @PrimaryKey({ type: BigIntType })
+  @PrimaryKey({ type: types.integer, unsigned: true, nullable: false })
   private id!: string;
 
-  @Property()
+  @Property({ type: types.string, length: 255 })
   private content!: string;
 
   @Property({ hidden: true })
