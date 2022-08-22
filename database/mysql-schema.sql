@@ -21,7 +21,7 @@ create table article
     title      varchar(255)     not null,
     content    text             null,
     is_private tinyint(1)       not null    default 0,
-    view_count int  unsigned    not null    default 0,
+    view_count int  unsigned    not null    default '0',
     created_at datetime         not null,
     updated_at datetime         not null,
     deleted_at datetime         null,
