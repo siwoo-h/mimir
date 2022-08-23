@@ -33,11 +33,41 @@ export class Article {
   }) // Equivalent of class-transformer's `@Transform()`
   user: User;
 
-  constructor(partial: Partial<Article>) {
-    Object.assign(this, partial);
+  constructor({ title, isPrivate = false, content = null }) {
+    this.title = title;
+    this.isPrivate = isPrivate;
+    this.content = content;
   }
 
-  get(): Article {
-    return this;
+  getId(): number {
+    return this.id;
+  }
+
+  getTitle(): string {
+    return this.title;
+  }
+
+  getContent(): string {
+    return this.content;
+  }
+
+  getIsPrivate(): boolean {
+    return this.isPrivate;
+  }
+
+  getViewCount(): number {
+    return this.viewCount;
+  }
+
+  getCreatedAt(): Date {
+    return this.createdAt;
+  }
+
+  getUpdatedAt(): Date {
+    return this.updatedAt;
+  }
+
+  getDeletedAt(): Date {
+    return this.deletedAt;
   }
 }
