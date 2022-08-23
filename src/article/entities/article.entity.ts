@@ -4,7 +4,7 @@ import { User } from '../../user/entities/user.entity';
 @Entity()
 export class Article {
   @PrimaryKey({ type: types.integer, unsigned: true, nullable: false })
-  private id!: number;
+  private id: number;
 
   @Property({ type: types.string, length: 255 })
   private title!: string;
