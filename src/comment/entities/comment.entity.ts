@@ -31,11 +31,27 @@ export class Comment {
   }) // Equivalent of class-transformer's `@Transform()`
   article: Article;
 
-  constructor(partial: Partial<Comment>) {
-    Object.assign(this, partial);
+  constructor({ content }) {
+    this.content = content;
   }
 
-  get(): Comment {
-    return this;
+  getId(): string {
+    return this.id;
+  }
+
+  getContent(): string {
+    return this.content;
+  }
+
+  getCreatedAt(): Date {
+    return this.createdAt;
+  }
+
+  getUpdatedAt(): Date {
+    return this.updatedAt;
+  }
+
+  getDeletedAt(): Date {
+    return this.deletedAt;
   }
 }
