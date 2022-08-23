@@ -13,19 +13,19 @@ export class Article {
   private content?: string;
 
   @Property({ type: types.tinyint, length: 1, default: false })
-  private is_private!: boolean;
+  private isPrivate!: boolean;
 
   @Property({ type: types.integer, unsigned: true, default: 0 })
-  private view_count!: number;
+  private viewCount!: number;
 
   @Property({ hidden: true })
-  private created_at: Date = new Date();
+  private createdAt: Date = new Date();
 
   @Property({ hidden: true, onUpdate: () => new Date() })
-  private updated_at: Date = new Date();
+  private updatedAt: Date = new Date();
 
   @Property({ hidden: true, nullable: true })
-  private deleted_at?: Date;
+  private deletedAt?: Date;
 
   @ManyToOne({
     serializer: (value) => value.id,

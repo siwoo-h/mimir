@@ -5,19 +5,19 @@ import { User } from '../../user/entities/user.entity';
 @Entity()
 export class Comment {
   @PrimaryKey({ type: types.integer, unsigned: true, nullable: false })
-  private id!: string;
+  private id: string;
 
   @Property({ type: types.string, length: 255 })
   private content!: string;
 
   @Property({ hidden: true })
-  private created_at: Date = new Date();
+  private createdAt: Date = new Date();
 
   @Property({ hidden: true, onUpdate: () => new Date() })
-  private updated_at: Date = new Date();
+  private updatedAt: Date = new Date();
 
   @Property({ hidden: true, nullable: true })
-  private deleted_at?: Date;
+  private deletedAt?: Date;
 
   @ManyToOne({
     serializer: (value) => value.id,

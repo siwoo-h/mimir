@@ -15,13 +15,13 @@ export class User {
   private password!: string;
 
   @Property({ hidden: true })
-  private registered_at: Date = new Date();
+  private registeredAt: Date = new Date();
 
   @Property({ hidden: true, onUpdate: () => new Date() })
-  private updated_at: Date = new Date();
+  private updatedAt: Date = new Date();
 
   @Property({ hidden: true, nullable: true })
-  private disabled_at?: Date;
+  private disabledAt?: Date;
 
   constructor(partial: Partial<User>) {
     Object.assign(this, partial);
