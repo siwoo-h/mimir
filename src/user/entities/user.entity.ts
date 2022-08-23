@@ -23,11 +23,37 @@ export class User {
   @Property({ hidden: true, nullable: true })
   private disabledAt?: Date;
 
-  constructor(partial: Partial<User>) {
-    Object.assign(this, partial);
+  constructor({ email, nickname, password }) {
+    this.email = email;
+    this.nickname = nickname;
+    this.password = password;
   }
 
-  get(): User {
-    return this;
+  getId(): string {
+    return this.id;
+  }
+
+  getEmail(): string {
+    return this.email;
+  }
+
+  getNickname(): string {
+    return this.nickname;
+  }
+
+  getPassword(): string {
+    return this.password;
+  }
+
+  getRegisteredAt(): Date {
+    return this.registeredAt;
+  }
+
+  getUpdatedAt(): Date {
+    return this.updatedAt;
+  }
+
+  getDisabledAt(): Date {
+    return this.disabledAt;
   }
 }
