@@ -33,10 +33,13 @@ export class Article {
   }) // Equivalent of class-transformer's `@Transform()`
   user: User;
 
-  constructor({ title, isPrivate = false, content = null }) {
+  constructor(id: number, title: string, user: User, content = null, isPrivate = false, viewCount = 0) {
+    this.id = id;
     this.title = title;
-    this.isPrivate = isPrivate;
+    this.user = user;
     this.content = content;
+    this.isPrivate = isPrivate;
+    this.viewCount = viewCount;
   }
 
   getId(): number {

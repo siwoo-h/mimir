@@ -23,7 +23,8 @@ export class User {
   @Property({ hidden: true, nullable: true })
   private disabledAt?: Date;
 
-  constructor({ email, nickname, password }) {
+  constructor(id: string, email: string, nickname: string, password: string) {
+    this.id = id;
     this.email = email;
     this.nickname = nickname;
     this.password = password;

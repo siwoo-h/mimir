@@ -31,8 +31,10 @@ export class Comment {
   }) // Equivalent of class-transformer's `@Transform()`
   article: Article;
 
-  constructor({ content }) {
+  constructor(id: string, content: string, user: User) {
+    this.id = id;
     this.content = content;
+    this.user = user;
   }
 
   getId(): string {
