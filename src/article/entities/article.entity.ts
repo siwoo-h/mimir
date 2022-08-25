@@ -4,73 +4,77 @@ import { User } from '../../user/entities/user.entity';
 @Entity()
 export class Article {
   @PrimaryKey({ type: types.integer, unsigned: true, nullable: false })
-  private id: number;
+  private _id: number;
 
   @Property({ type: types.string, length: 255 })
-  private title!: string;
+  private _title!: string;
 
   @Property({ type: types.text, nullable: true })
-  private content?: string;
+  private _content?: string;
 
   @Property({ type: types.tinyint, length: 1, default: false })
-  private isPrivate!: boolean;
+  private _isPrivate!: boolean;
 
   @Property({ type: types.integer, unsigned: true, default: 0 })
-  private viewCount!: number;
+  private _viewCount!: number;
 
   @Property({ hidden: true })
-  private createdAt: Date = new Date();
+  private _createdAt: Date = new Date();
 
   @Property({ hidden: true, onUpdate: () => new Date() })
-  private updatedAt: Date = new Date();
+  private _updatedAt: Date = new Date();
 
   @Property({ hidden: true, nullable: true })
-  private deletedAt?: Date;
+  private _deletedAt?: Date;
 
   @ManyToOne({
     serializer: (value) => value.id,
     serializedName: 'user_id',
   }) // Equivalent of class-transformer's `@Transform()`
-  user: User;
+  private _user: User;
 
   constructor(id: number, title: string, user: User, content = null, isPrivate = false, viewCount = 0) {
-    this.id = id;
-    this.title = title;
-    this.user = user;
-    this.content = content;
-    this.isPrivate = isPrivate;
-    this.viewCount = viewCount;
+    this._id = id;
+    this._title = title;
+    this._user = user;
+    this._content = content;
+    this._isPrivate = isPrivate;
+    this._viewCount = viewCount;
   }
 
-  getId(): number {
-    return this.id;
+  get id(): number {
+    return this._id;
   }
 
-  getTitle(): string {
-    return this.title;
+  get title(): string {
+    return this._title;
   }
 
-  getContent(): string {
-    return this.content;
+  get content(): string {
+    return this._content;
   }
 
-  getIsPrivate(): boolean {
-    return this.isPrivate;
+  get isPrivate(): boolean {
+    return this._isPrivate;
   }
 
-  getViewCount(): number {
-    return this.viewCount;
+  get viewCount(): number {
+    return this._viewCount;
   }
 
-  getCreatedAt(): Date {
-    return this.createdAt;
+  get createdAt(): Date {
+    return this._createdAt;
   }
 
-  getUpdatedAt(): Date {
-    return this.updatedAt;
+  get updatedAt(): Date {
+    return this._updatedAt;
   }
 
-  getDeletedAt(): Date {
-    return this.deletedAt;
+  get deletedAt(): Date {
+    return this._deletedAt;
+  }
+
+  get user(): User {
+    return this._user;
   }
 }

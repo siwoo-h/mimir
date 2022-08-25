@@ -5,25 +5,25 @@ import { User } from '../../user/entities/user.entity';
 @Entity()
 export class Comment {
   @PrimaryKey({ type: types.integer, unsigned: true, nullable: false })
-  private id: string;
+  private _id: string;
 
   @Property({ type: types.string, length: 255 })
-  private content!: string;
+  private _content!: string;
 
   @Property({ hidden: true })
-  private createdAt: Date = new Date();
+  private _createdAt: Date = new Date();
 
   @Property({ hidden: true, onUpdate: () => new Date() })
-  private updatedAt: Date = new Date();
+  private _updatedAt: Date = new Date();
 
   @Property({ hidden: true, nullable: true })
-  private deletedAt?: Date;
+  private _deletedAt?: Date;
 
   @ManyToOne({
     serializer: (value) => value.id,
     serializedName: 'user_id',
   }) // Equivalent of class-transformer's `@Transform()`
-  user: User;
+  _user: User;
 
   @ManyToOne({
     serializer: (value) => value.id,
@@ -32,28 +32,32 @@ export class Comment {
   article: Article;
 
   constructor(id: string, content: string, user: User) {
-    this.id = id;
-    this.content = content;
-    this.user = user;
+    this._id = id;
+    this._content = content;
+    this._user = user;
   }
 
-  getId(): string {
-    return this.id;
+  get id(): string {
+    return this._id;
   }
 
-  getContent(): string {
-    return this.content;
+  get content(): string {
+    return this._content;
   }
 
-  getCreatedAt(): Date {
-    return this.createdAt;
+  get createdAt(): Date {
+    return this._createdAt;
   }
 
-  getUpdatedAt(): Date {
-    return this.updatedAt;
+  get updatedAt(): Date {
+    return this._updatedAt;
   }
 
-  getDeletedAt(): Date {
-    return this.deletedAt;
+  get deletedAt(): Date {
+    return this._deletedAt;
+  }
+
+  get user(): User {
+    return this._user;
   }
 }
