@@ -3,58 +3,58 @@ import { Entity, PrimaryKey, Property, types } from '@mikro-orm/core';
 @Entity()
 export class User {
   @PrimaryKey({ type: types.uuid, nullable: false })
-  private _id: string;
+  private id: string;
 
   @Property({ type: types.string, length: 255, unique: true })
-  private _email!: string;
+  private email!: string;
 
   @Property({ type: types.string, length: 255, unique: true })
-  private _nickname!: string;
+  private nickname!: string;
 
   @Property({ type: types.string, length: 255 })
-  private _password!: string;
+  private password!: string;
 
   @Property({ hidden: true })
-  private _registeredAt: Date = new Date();
+  private registeredAt: Date = new Date();
 
   @Property({ hidden: true, onUpdate: () => new Date() })
-  private _updatedAt: Date = new Date();
+  private updatedAt: Date = new Date();
 
   @Property({ hidden: true, nullable: true })
-  private _disabledAt?: Date;
+  private disabledAt?: Date;
 
   constructor(id: string, email: string, nickname: string, password: string) {
-    this._id = id;
-    this._email = email;
-    this._nickname = nickname;
-    this._password = password;
+    this.id = id;
+    this.email = email;
+    this.nickname = nickname;
+    this.password = password;
   }
 
-  get id(): string {
-    return this._id;
+  getId(): string {
+    return this.id;
   }
 
-  get email(): string {
-    return this._email;
+  getEmail(): string {
+    return this.email;
   }
 
-  get nickname(): string {
-    return this._nickname;
+  getNickname(): string {
+    return this.nickname;
   }
 
-  get password(): string {
-    return this._password;
+  getPassword(): string {
+    return this.password;
   }
 
-  get registeredAt(): Date {
-    return this._registeredAt;
+  getRegisteredAt(): Date {
+    return this.registeredAt;
   }
 
-  get updatedAt(): Date {
-    return this._updatedAt;
+  getUpdatedAt(): Date {
+    return this.updatedAt;
   }
 
-  get disabledAt(): Date {
-    return this._disabledAt;
+  getDisabledAt(): Date {
+    return this.disabledAt;
   }
 }
