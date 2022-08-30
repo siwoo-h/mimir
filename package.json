@@ -9,6 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "insert": "npx mikro-orm seeder:run",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -39,6 +40,7 @@
   "devDependencies": {
     "@compodoc/compodoc": "^1.1.19",
     "@mikro-orm/cli": "^5.3.1",
+    "@mikro-orm/seeder": "^5.3.1",
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
