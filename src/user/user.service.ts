@@ -1,11 +1,22 @@
+import { EntityRepository } from '@mikro-orm/mysql';
+import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: EntityRepository<User>
+  ) {}
+
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const { email, nickname, password } = createUserDto;
+    const user = new User(email, nickname, password);
+    await this.userRepository.persistAndFlush(user);
+    return user;
   }
 
   findAll() {
