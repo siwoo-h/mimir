@@ -1,14 +1,14 @@
 import { Options } from '@mikro-orm/core';
-import { Article } from './src/article/entities/article.entity';
-import { Comment } from './src/comment/entities/comment.entity';
-import { User } from './src/user/entities/user.entity';
+import { Article } from '@src/article/entities/article.entity';
+import { Comment } from '@src/comment/entities/comment.entity';
+import { User } from '@src/user/entities/user.entity';
 
 const options: Options = {
   entities: [User, Article, Comment],
   type: 'mysql',
   dbName: process.env.DB_NAME,
   debug: true,
-  port: process.env.DB_PORT,
+  port: parseInt(process.env.DB_PORT, 10),
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   seeder: {
