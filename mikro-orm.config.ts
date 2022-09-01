@@ -12,7 +12,7 @@ const options: Options = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   seeder: {
-    path: './seeders', // path to the folder with seeders
+    path: `${__dirname}/seeders`, // path to the folder with seeders
     pathTs: undefined, // path to the folder with TS seeders (if used, we should put path to compiled files in `path`)
     defaultSeeder: 'DatabaseSeeder', // default seeder class name
     glob: '!(*.d).{js,ts}', // how to match seeder files (all .js and .ts files, but not .d.ts)
