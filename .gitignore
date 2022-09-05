@@ -41,3 +41,6 @@ mysql
 documentation/*
 !documentation/README.md
 !documentation/design/*
+
+#env
+.env
