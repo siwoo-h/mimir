@@ -4,7 +4,6 @@ import { Comment } from '@src/comment/entities/comment.entity';
 import config from '@src/common/config';
 import { User } from '@src/user/entities/user.entity';
 
-const serverConfig = config().server;
 const databaseConfig = config().database;
 
 const options: Options = {
@@ -12,7 +11,7 @@ const options: Options = {
   type: 'mysql',
   dbName: databaseConfig.database,
   debug: true,
-  port: serverConfig.port,
+  port: databaseConfig.port,
   user: databaseConfig.username,
   password: databaseConfig.password,
   seeder: {
