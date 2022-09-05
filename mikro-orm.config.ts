@@ -1,16 +1,20 @@
 import { Options } from '@mikro-orm/core';
 import { Article } from '@src/article/entities/article.entity';
 import { Comment } from '@src/comment/entities/comment.entity';
+import config from '@src/common/config';
 import { User } from '@src/user/entities/user.entity';
+
+const serverConfig = config().server;
+const databaseConfig = config().database;
 
 const options: Options = {
   entities: [User, Article, Comment],
   type: 'mysql',
-  dbName: process.env.DB_NAME,
+  dbName: databaseConfig.database,
   debug: true,
-  port: parseInt(process.env.DB_PORT, 10),
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
+  port: serverConfig.port,
+  user: databaseConfig.username,
+  password: databaseConfig.password,
   seeder: {
     path: `${__dirname}/seeders`, // path to the folder with seeders
     pathTs: undefined, // path to the folder with TS seeders (if used, we should put path to compiled files in `path`)
