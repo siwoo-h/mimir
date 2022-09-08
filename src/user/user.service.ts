@@ -1,9 +1,9 @@
 import { EntityRepository } from '@mikro-orm/mysql';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { CreateUserDto } from '@src/user/dto/create-user.dto';
+import { UpdateUserDto } from '@src/user/dto/update-user.dto';
+import { User } from '@src/user/entities/user.entity';
 
 @Injectable()
 export class UserService {
