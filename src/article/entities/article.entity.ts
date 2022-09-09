@@ -1,5 +1,5 @@
 import { BigIntType, Entity, ManyToOne, PrimaryKey, Property, types } from '@mikro-orm/core';
-import { User } from '../../user/entities/user.entity';
+import { User } from '@src/user/entities/user.entity';
 
 @Entity()
 export class Article {
