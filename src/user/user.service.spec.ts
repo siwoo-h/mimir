@@ -13,6 +13,12 @@ describe('UserService', () => {
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    const userDto = {
+      email: 'user1@test.com',
+      nickname: 'nickname',
+      password: 'password',
+    };
+    const createdUser = service.create(userDto);
+    expect(createdUser).toHaveReturned();
   });
 });
