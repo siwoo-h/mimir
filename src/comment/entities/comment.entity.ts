@@ -1,11 +1,11 @@
-import { BigIntType, Entity, ManyToOne, PrimaryKey, Property, types } from '@mikro-orm/core';
+import { Entity, ManyToOne, PrimaryKey, Property, types } from '@mikro-orm/core';
 import { Article } from '@src/article/entities/article.entity';
 import { User } from '@src/user/entities/user.entity';
 
 @Entity()
 export class Comment {
   @PrimaryKey({ type: types.integer, unsigned: true, nullable: false })
-  private id: string;
+  private id: number;
 
   @Property({ type: types.string, length: 255 })
   private content!: string;
@@ -31,13 +31,13 @@ export class Comment {
   }) // Equivalent of class-transformer's `@Transform()`
   article: Article;
 
-  constructor(id: string, content: string, user: User) {
+  constructor(id: number, content: string, user: User) {
     this.id = id;
     this.content = content;
     this.user = user;
   }
 
-  getId(): string {
+  getId(): number {
     return this.id;
   }
 
