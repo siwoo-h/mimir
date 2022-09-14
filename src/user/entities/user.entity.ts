@@ -1,9 +1,10 @@
+import { v4 } from 'uuid';
 import { Entity, PrimaryKey, Property, types } from '@mikro-orm/core';
 
 @Entity()
 export class User {
   @PrimaryKey({ type: types.uuid, nullable: false })
-  private id: string;
+  private id: string = v4();
 
   @Property({ type: types.string, length: 255, unique: true })
   private email!: string;
