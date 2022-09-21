@@ -10,11 +10,5 @@ export class DatabaseSeeder extends Seeder {
       nickname: 'user1',
       password: 'user1pw!',
     });
-
-    const article = em.create(Article, {
-      title: 'article',
-      isPrivate: true,
-      viewCount: 0,
-    });
   }
 }
