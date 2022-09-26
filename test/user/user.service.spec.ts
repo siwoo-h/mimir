@@ -1,4 +1,5 @@
 import { getRepositoryToken } from '@mikro-orm/nestjs';
+import { EntityRepository } from '@mikro-orm/mysql';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from '@src/user/user.service';
 import { User } from '@src/user/entities/user.entity';
@@ -13,6 +14,7 @@ const mockPostRepository = () => ({
 
 describe('UserService', () => {
   let service: UserService;
+  let postRepository: EntityRepository<User>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -26,15 +28,20 @@ describe('UserService', () => {
     }).compile();
 
     service = module.get<UserService>(UserService);
+    postRepository = module.get(getRepositoryToken(User));
   });
 
-  it('create', () => {
-    const userDto = {
+  describe('Create', () => {
+    const createArgs = {
       email: 'user1@test.com',
       nickname: 'nickname',
       password: 'password',
     };
-    const createdUser = service.create(userDto);
-    expect(createdUser).toHaveReturned();
+    it('success', async () => {
+      const result = await service.create(createArgs);
+
+      expect(postRepository.persistAndFlush).toHaveBeenCalledTimes(1);
+      expect(result).toHaveProperty('id');
+    });
   });
 });
