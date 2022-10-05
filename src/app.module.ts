@@ -14,6 +14,7 @@ import config from '@src/common/config';
   imports: [
     ConfigModule.forRoot({
       load: [config],
+      isGlobal: true,
     }),
     MikroOrmModule.forRoot(),
     MikroOrmModule.forFeature([User]),
