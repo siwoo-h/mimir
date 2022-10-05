@@ -48,7 +48,7 @@ export class UserService {
   }
 
   private async isEmailUsed(email: string): Promise<Boolean> {
-    const user = await this.userRepository.findOne(email);
+    const user = await this.userRepository.findOne({ email });
     return !!user;
   }
 }
