@@ -16,6 +16,10 @@ export class UserService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
       const { email, nickname, password } = createUserDto;
+      const isUsedEmail = await this.isEmailUsed(email);
+      if (isUsedEmail) {
+        throw new HttpException('Email already registered', 400);
+      }
       const user = new User(email, nickname, password);
       await this.userRepository.persistAndFlush(user);
       return user;
@@ -41,5 +45,10 @@ export class UserService {
 
   remove(id: number) {
     return `This action removes a #${id} user`;
+  }
+
+  private async isEmailUsed(email: string): Promise<Boolean> {
+    const user = await this.userRepository.findOne(email);
+    return !!user;
   }
 }
