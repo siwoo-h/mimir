@@ -12,6 +12,7 @@ export interface ServerConfig {
   host: string;
   port: number;
   originDomain: string;
+  passwordSalt: string;
 }
 
 export interface DatabaseConfig {
@@ -28,6 +29,7 @@ export default () => ({
     host: process.env.SERVER_HOST || 'localhost',
     port: parseInt(process.env.SERVER_PORT, 10) || 3000,
     originDomain: process.env.ORIGIN_DOMAIN || 'http://localhost:3000',
+    passwordSalt: process.env.AUTH_SALT || 'mimir',
   },
   database: {
     host: process.env.DB_HOST || 'localhost',
