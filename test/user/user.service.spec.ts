@@ -3,6 +3,8 @@ import { EntityRepository } from '@mikro-orm/mysql';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from '@src/user/user.service';
 import { User } from '@src/user/entities/user.entity';
+import { ConfigModule } from '@nestjs/config';
+import config from '@src/common/config';
 
 const mockPostRepository = () => ({
   save: jest.fn(),
@@ -18,6 +20,12 @@ describe('UserService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        ConfigModule.forRoot({
+          load: [config],
+          isGlobal: true,
+        }),
+      ],
       providers: [
         UserService,
         {
