@@ -20,7 +20,7 @@ export class UserService {
     this.serverConfig = this.configService.get<ServerConfig>('server');
   }
 
-  async create(createUserDto: CreateUserDto): Promise<string> {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     try {
       const { email, nickname, password } = createUserDto;
       const isUsedEmail = await this.isEmailUsed(email);
@@ -31,7 +31,7 @@ export class UserService {
       const user = new User(email, nickname, hashedPassword);
       await this.userRepository.persistAndFlush(user);
 
-      return user.getId();
+      return user;
     } catch (error) {
       if (error instanceof UniqueConstraintViolationException) {
         throw new HttpException(error.message, 400);
