@@ -14,7 +14,6 @@ import config from '@src/common/config';
   imports: [
     ConfigModule.forRoot({
       load: [config],
-      isGlobal: true,
     }),
     MikroOrmModule.forRoot(),
     MikroOrmModule.forFeature([User]),
@@ -25,4 +24,4 @@ import config from '@src/common/config';
   controllers: [AppController],
   providers: [AppService, UserService],
 })
-export class AppModule {}
+export class TestModule {}
