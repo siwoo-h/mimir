@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from '@src/app.service';
 import { CreateUserDto } from '@src/user/dto/create-user.dto';
 import { UserService } from '@src/user/user.service';
+import { PostUserDto } from '@src/user/dto/post-user.dto';
 
 @Controller()
 export class AppController {
@@ -13,7 +14,8 @@ export class AppController {
   }
 
   @Post('sign-up')
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto): Promise<PostUserDto> {
+    const user = await this.userService.create(createUserDto);
+    return { id: user.getId() };
   }
 }
