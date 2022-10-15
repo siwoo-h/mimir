@@ -12,7 +12,7 @@ export class User {
   @Property({ type: types.string, length: 255, unique: true })
   private nickname!: string;
 
-  @Property({ type: types.string, length: 255 })
+  @Property({ hidden: true, type: types.string, length: 255 })
   private password!: string;
 
   @Property({ hidden: true })
