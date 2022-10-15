@@ -40,8 +40,8 @@ export class UserService {
     }
   }
 
-  findAll() {
-    return `This action returns all user`;
+  findAll(): Promise<User[]> {
+    return this.userRepository.findAll();
   }
 
   findOne(id: number) {
