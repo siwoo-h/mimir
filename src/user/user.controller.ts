@@ -1,6 +1,8 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { UserService } from '@src/user/user.service';
 import { UpdateUserDto } from '@src/user/dto/update-user.dto';
+import { GetAllUserDto } from '@src/user/dto/get-all-user.dto';
+import { UserDto } from '@src/user/dto/user.dto';
 
 @Controller('users')
 export class UserController {
@@ -12,8 +14,9 @@ export class UserController {
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  async findAll(): Promise<GetAllUserDto> {
+    const users = await this.userService.findAll();
+    return { users: users.map((user) => UserDto.from(user)) };
   }
 
   @Get(':id')
