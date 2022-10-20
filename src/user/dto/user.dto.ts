@@ -1,5 +1,5 @@
 import { Exclude, Expose, plainToClass } from 'class-transformer';
-import { User } from '../entities/user.entity';
+import { User } from '@src/user/entities/user.entity';
 
 @Exclude()
 export class UserDto {
