@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from '@src/user/user.service';
 import { UpdateUserDto } from '@src/user/dto/update-user.dto';
 import { GetAllUserDto } from '@src/user/dto/get-all-user.dto';
@@ -20,6 +20,7 @@ export class UserController {
     summary: '모든 사용자 조회',
     description: '모든 사용자를 조회한다.',
   })
+  @ApiResponse({ status: 200, description: 'OK', type: GetAllUserDto })
   async findAll(): Promise<GetAllUserDto> {
     const users = await this.userService.findAll();
     return { users: users.map((user) => UserDto.from(user)) };
