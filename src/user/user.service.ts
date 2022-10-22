@@ -3,6 +3,7 @@ import { UniqueConstraintViolationException } from '@mikro-orm/core';
 import { EntityRepository } from '@mikro-orm/mysql';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { HttpException, Injectable } from '@nestjs/common';
+
 import { CreateUserDto } from '@src/user/dto/create-user.dto';
 import { UpdateUserDto } from '@src/user/dto/update-user.dto';
 import { User } from '@src/user/entities/user.entity';
