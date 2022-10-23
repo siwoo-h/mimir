@@ -1,9 +1,10 @@
 import { getRepositoryToken } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/mysql';
 import { Test, TestingModule } from '@nestjs/testing';
+import { ConfigModule } from '@nestjs/config';
+
 import { UserService } from '@src/user/user.service';
 import { User } from '@src/user/entities/user.entity';
-import { ConfigModule } from '@nestjs/config';
 import config from '@src/common/config';
 
 const mockRepository = () => ({
