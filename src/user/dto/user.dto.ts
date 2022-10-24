@@ -18,9 +18,9 @@ export class UserDto {
 
   static from(user: User): UserDto {
     const userDto = plainToClass(UserDto, user);
-    userDto.id = user.getId();
-    userDto.email = user.getEmail();
-    userDto.nickname = user.getNickname();
+    userDto.id = user?.getId();
+    userDto.email = user?.getEmail();
+    userDto.nickname = user?.getNickname();
     return userDto;
   }
 }
