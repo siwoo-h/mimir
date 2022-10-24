@@ -1,10 +1,11 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { UserService } from '@src/user/user.service';
 import { UpdateUserDto } from '@src/user/dto/update-user.dto';
 import { GetAllUserDto } from '@src/user/dto/get-all-user.dto';
 import { UserDto } from '@src/user/dto/user.dto';
+import { GetUserDto } from '@src/user/dto/get-user.dto';
 
 @ApiTags('user')
 @Controller('users')
@@ -28,8 +29,17 @@ export class UserController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  @ApiOperation({
+    summary: '특정 사용자 조회',
+    description: '특정 사용자를 조회한다.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'User id',
+  })
+  async findOne(@Param('id') id: string): Promise<GetUserDto> {
+    const user = await this.userService.findOne(id);
+    return UserDto.from(user);
   }
 
   @Patch(':id')
