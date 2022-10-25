@@ -37,6 +37,7 @@ export class UserController {
     name: 'id',
     description: 'User id',
   })
+  @ApiResponse({ status: 200, description: 'OK', type: GetUserDto })
   async findOne(@Param('id') id: string): Promise<GetUserDto> {
     const user = await this.userService.findOne(id);
     return UserDto.from(user);
