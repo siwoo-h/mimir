@@ -61,4 +61,12 @@ describe('UserService', () => {
       expect(repository.findAll).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('Find One', () => {
+    it('success', async () => {
+      const id = 'any';
+      const result = await service.findOne(id);
+      expect(repository.findOne).toHaveBeenCalledTimes(1);
+    });
+  });
 });
