@@ -5,15 +5,15 @@ import { User } from '@src/user/entities/user.entity';
 @Exclude()
 export class UserDto {
   @Expose()
-  @ApiProperty({ description: 'User DB id' })
+  @ApiProperty({ description: 'User DB id', uniqueItems: true })
   id: string;
 
   @Expose()
-  @ApiProperty({ description: '이메일' })
+  @ApiProperty({ description: '이메일', uniqueItems: true })
   email: string;
 
   @Expose()
-  @ApiProperty({ description: '닉네임' })
+  @ApiProperty({ description: '닉네임', uniqueItems: true })
   nickname: string;
 
   static from(user: User): UserDto {
