@@ -12,11 +12,6 @@ import { GetUserDto } from '@src/user/dto/get-user.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
-  create() {
-    return;
-  }
-
   @Get()
   @ApiOperation({
     summary: '모든 사용자 조회',
