@@ -11,11 +11,6 @@ import { AppService } from '@src/app.service';
 export class AppController {
   constructor(private readonly appService: AppService, private readonly userService: UserService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
   @Post('sign-up')
   @ApiOperation({ description: '회원가입' })
   @ApiBody({ type: CreateUserDto })
