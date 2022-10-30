@@ -2,10 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { UserService } from '@src/user/user.service';
-import { UpdateUserDto } from '@src/user/dto/update-user.dto';
-import { GetAllUserDto } from '@src/user/dto/get-all-user.dto';
+import { UpdateUserDto } from '@src/user/dto/in/update-user.dto';
+import { GetAllUserDto } from '@src/user/dto/out/get-all-user.dto';
 import { UserDto } from '@src/user/dto/user.dto';
-import { GetUserDto } from '@src/user/dto/get-user.dto';
+import { GetUserDto } from '@src/user/dto/out/get-user.dto';
 
 @ApiTags('user')
 @Controller('users')
