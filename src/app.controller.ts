@@ -3,7 +3,7 @@ import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 import { CreateUserDto } from '@src/user/dto/in/create-user.dto';
 import { UserService } from '@src/user/user.service';
-import { PostUserDto } from '@src/user/dto/in/post-user.dto';
+import { PostUserDto } from '@src/user/dto/out/post-user.dto';
 
 import { AppService } from '@src/app.service';
 
