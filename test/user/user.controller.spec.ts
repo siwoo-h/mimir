@@ -1,19 +1,27 @@
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserController } from '@src/user/user.controller';
+import request from 'supertest';
 import { TestModule } from '@test/test.module';
+import { GetAllUserDto } from '@src/user/dto/out/get-all-user.dto';
 
 describe('UserController', () => {
-  let controller: UserController;
+  let app: INestApplication;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [TestModule],
     }).compile();
 
-    controller = module.get<UserController>(UserController);
+    app = module.createNestApplication();
+    await app.init();
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  afterAll(() => {
+    app.close();
+  });
+
+  it('/users (GET)', async () => {
+    const response = await request(app.getHttpServer()).get('/users').expect(200);
+    expect(response.body).toHaveProperty('users');
   });
 });
