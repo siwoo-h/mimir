@@ -1,8 +1,7 @@
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { TestModule } from '@test/test.module';
-import { GetAllUserDto } from '@src/user/dto/out/get-all-user.dto';
 
 describe('UserController', () => {
   let app: INestApplication;
