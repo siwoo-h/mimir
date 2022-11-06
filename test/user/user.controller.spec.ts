@@ -5,6 +5,7 @@ import { TestModule } from '@test/test.module';
 
 describe('UserController', () => {
   let app: INestApplication;
+  let connection: any;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -19,12 +20,20 @@ describe('UserController', () => {
     app.close();
   });
 
+  beforeEach(() => {
+    connection = request(app.getHttpServer());
+  });
+
   describe('GET', () => {
     test('/users', async () => {
-      const response = await request(app.getHttpServer())
-        .get('/users')
-        .expect(200);
+      const response = await connection.get('/users').expect(200);
       expect(response.body).toHaveProperty('users');
+    });
+
+    test('/users/:id', async () => {
+      const userId = 'some-id';
+      const response = await connection.get(`/users/${userId}`);
+      expect(response).toBeDefined();
     });
   });
 });
