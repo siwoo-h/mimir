@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Delete, HttpException } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { UserService } from '@src/user/user.service';
@@ -35,6 +35,9 @@ export class UserController {
   @ApiResponse({ status: 200, description: 'OK', type: GetUserDto })
   async findOne(@Param('id') id: string): Promise<GetUserDto> {
     const user = await this.userService.findOne(id);
+    if (!user) {
+      throw new HttpException('User not found', 404);
+    }
     return UserDto.from(user);
   }
 
