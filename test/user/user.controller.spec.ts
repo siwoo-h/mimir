@@ -6,7 +6,7 @@ import { TestModule } from '@test/test.module';
 describe('UserController', () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [TestModule],
     }).compile();
@@ -19,8 +19,12 @@ describe('UserController', () => {
     app.close();
   });
 
-  it('/users (GET)', async () => {
-    const response = await request(app.getHttpServer()).get('/users').expect(200);
-    expect(response.body).toHaveProperty('users');
+  describe('GET', () => {
+    test('/users', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/users')
+        .expect(200);
+      expect(response.body).toHaveProperty('users');
+    });
   });
 });
