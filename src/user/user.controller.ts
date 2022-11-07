@@ -1,6 +1,8 @@
 import { Controller, Get, Body, Patch, Param, Delete, HttpException } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+import { HttpExceptionDto } from '@src/common/dto/http-exception.dto';
+
 import { UserService } from '@src/user/user.service';
 import { UpdateUserDto } from '@src/user/dto/in/update-user.dto';
 import { GetAllUserDto } from '@src/user/dto/out/get-all-user.dto';
@@ -33,6 +35,7 @@ export class UserController {
     description: 'User id',
   })
   @ApiResponse({ status: 200, description: 'OK', type: GetUserDto })
+  @ApiResponse({ status: 404, description: 'Not Found', type: HttpExceptionDto })
   async findOne(@Param('id') id: string): Promise<GetUserDto> {
     const user = await this.userService.findOne(id);
     if (!user) {
