@@ -23,6 +23,11 @@ export interface DatabaseConfig {
   database: string;
 }
 
+export interface SwaggerConfig {
+  username: string;
+  password: string;
+}
+
 export default () => ({
   server: {
     nodeEnv: process.env.NODE_ENV || NodeEnv.DEV,
@@ -37,5 +42,9 @@ export default () => ({
     username: process.env.DB_USERNAME || 'mimir',
     password: process.env.DB_PASSWORD || 'mimirpw',
     database: process.env.DB_NAME || 'mimir',
+  },
+  swagger: {
+    username: process.env.SWAGGER_USERNAME,
+    password: process.env.SWAGGER_PASSWORD,
   },
 });
