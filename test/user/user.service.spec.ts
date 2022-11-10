@@ -47,7 +47,7 @@ describe('UserService', () => {
       nickname: 'nickname',
       password: 'password',
     };
-    it('success', async () => {
+    test('success', async () => {
       const result = await service.create(createArgs);
 
       expect(repository.persistAndFlush).toHaveBeenCalledTimes(1);
@@ -56,14 +56,14 @@ describe('UserService', () => {
   });
 
   describe('Find All', () => {
-    it('success', async () => {
+    test('success', async () => {
       const result = await service.findAll();
       expect(repository.findAll).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('Find One', () => {
-    it('success', async () => {
+    test('success', async () => {
       const id = 'any';
       const result = await service.findOne(id);
       expect(repository.findOne).toHaveBeenCalledTimes(1);

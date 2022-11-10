@@ -19,7 +19,7 @@ describe('AppController', () => {
     app.close();
   });
 
-  it('/sign-up (POST)', async () => {
+  test('/sign-up (POST)', async () => {
     const response = await request(app.getHttpServer())
       .post('/sign-up')
       .send({ email: 'test@test.com', nickname: 'test', password: 'test1234' })
