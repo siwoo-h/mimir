@@ -5,11 +5,9 @@ import { CreateUserDto } from '@src/user/dto/in/create-user.dto';
 import { UserService } from '@src/user/user.service';
 import { PostUserDto } from '@src/user/dto/out/post-user.dto';
 
-import { AppService } from '@src/app.service';
-
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService, private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
   @Post('sign-up')
   @ApiOperation({ description: '회원가입' })
