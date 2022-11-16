@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Patch, Param, Delete, HttpException } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { HttpExceptionDto } from '@src/common/dto/http-exception.dto';
@@ -22,7 +22,9 @@ export class UserController {
   @ApiResponse({ status: 200, description: 'OK', type: GetAllUserDto })
   async findAll(): Promise<GetAllUserDto> {
     const users = await this.userService.findAll();
-    return { users: users.map((user) => UserDto.from(user)) };
+    return {
+      users: users.map((user) => UserDto.from(user)),
+    };
   }
 
   @Get(':id')
@@ -38,9 +40,6 @@ export class UserController {
   @ApiResponse({ status: 404, description: 'Not Found', type: HttpExceptionDto })
   async findOne(@Param('id') id: string): Promise<GetUserDto> {
     const user = await this.userService.findOne(id);
-    if (!user) {
-      throw new HttpException('User not found', 404);
-    }
     return UserDto.from(user);
   }
 
