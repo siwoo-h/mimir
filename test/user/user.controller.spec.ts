@@ -16,12 +16,12 @@ describe('UserController', () => {
     await app.init();
   });
 
-  afterAll(() => {
-    app.close();
-  });
-
   beforeEach(() => {
     connection = request(app.getHttpServer());
+  });
+
+  afterAll(() => {
+    app.close();
   });
 
   describe('GET', () => {
