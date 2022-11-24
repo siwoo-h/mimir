@@ -11,7 +11,7 @@ export class AppController {
   constructor(private readonly userService: UserService) {}
 
   @Post('sign-up')
-  @ApiOperation({ description: '회원가입' })
+  @ApiOperation({ summary: '회원가입', description: '회원가입' })
   @ApiBody({ type: CreateUserDto })
   @ApiResponse({ status: 201, description: 'Created', type: PostUserDto })
   async create(@Body() createUserDto: CreateUserDto): Promise<PostUserDto> {
