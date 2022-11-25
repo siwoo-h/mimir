@@ -10,7 +10,7 @@ import { UserModule } from '@src/user/user.module';
 import { UserService } from '@src/user/user.service';
 import { User } from '@src/user/entities/user.entity';
 import config from '@src/common/config';
-import { HttpExceptionFilter } from '@src/common/filter/exception.filter';
+import { HttpExceptionFilter } from '@src/common/filter/http-exception.filter';
 
 @Module({
   imports: [
