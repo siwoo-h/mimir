@@ -1,9 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { CreateUserDto } from '@src/user/dto/in/create-user.dto';
+import { CreateUserDto } from '@src/auth/dto/in/create-user.dto';
 import { UserService } from '@src/user/user.service';
-import { PostUserDto } from '@src/user/dto/out/post-user.dto';
+import { PostUserDto } from '@src/auth/dto/out/post-user.dto';
+import { PostSignInDto } from '@src/auth/dto/in/post-sign-in.dto';
 
 @ApiTags('app')
 @Controller()
@@ -18,4 +19,9 @@ export class AppController {
     const user = await this.userService.create(createUserDto);
     return { id: user.getId() };
   }
+
+  @Post('sign-in')
+  @ApiOperation({ summary: '로그인', description: '로그인' })
+  @ApiBody({ type: PostSignInDto })
+  async signIn(@Body() postSignInDto: PostSignInDto): Promise<void> {}
 }
