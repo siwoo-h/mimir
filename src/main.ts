@@ -1,9 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import basicAuth from 'express-basic-auth';
 import { AppModule } from '@src/app.module';
 import { ServerConfig, SwaggerConfig } from '@src/common/config';
+import { setupSwagger } from '@src/common/swagger/setup.swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,14 +19,7 @@ async function bootstrap() {
     })
   );
 
-  const config = new DocumentBuilder()
-    .setTitle('MIMIR')
-    .setDescription('The mimir API description')
-    .setVersion('1.0')
-    .addTag('mimir')
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
+  setupSwagger(app);
 
   await app.listen(port);
 }
