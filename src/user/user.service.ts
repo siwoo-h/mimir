@@ -4,8 +4,6 @@ import { Injectable } from '@nestjs/common';
 
 import { UpdateUserDto } from '@src/user/dto/in/update-user.dto';
 import { User } from '@src/user/entities/user.entity';
-import { ConfigService } from '@nestjs/config';
-import { ServerConfig } from '@src/common/config';
 
 @Injectable()
 export class UserService {
@@ -20,6 +18,10 @@ export class UserService {
 
   findOne(id: string): Promise<User> {
     return this.userRepository.findOne({ id });
+  }
+
+  findByEmail(email: string): Promise<User> {
+    return this.userRepository.findOne({ email });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

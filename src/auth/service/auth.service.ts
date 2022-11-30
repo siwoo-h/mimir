@@ -3,11 +3,12 @@ import { UniqueConstraintViolationException } from '@mikro-orm/core';
 import { EntityRepository } from '@mikro-orm/mysql';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { HttpException, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 import { CreateUserDto } from '@src/auth/dto/in/create-user.dto';
 import { User } from '@src/user/entities/user.entity';
-import { ConfigService } from '@nestjs/config';
 import { ServerConfig } from '@src/common/config';
+import { UserService } from '@src/user/user.service';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,8 @@ export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: EntityRepository<User>,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly userService: UserService
   ) {
     this.serverConfig = this.configService.get<ServerConfig>('server');
   }
@@ -38,6 +40,15 @@ export class AuthService {
       }
       throw error;
     }
+  }
+
+  async validateUser(email: string, pass: string): Promise<any> {
+    const user = await this.userService.findByEmail(email);
+    const password = user.getPassword();
+    if (user && password === pass) {
+      return user;
+    }
+    return null;
   }
 
   private async isEmailUsed(email: string): Promise<Boolean> {
