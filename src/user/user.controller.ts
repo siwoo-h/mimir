@@ -5,9 +5,9 @@ import { HttpExceptionDto } from '@src/common/dto/http-exception.dto';
 
 import { UserService } from '@src/user/user.service';
 import { UpdateUserDto } from '@src/user/dto/in/update-user.dto';
-import { GetAllUserDto } from '@src/user/dto/out/get-all-user.dto';
 import { UserDto } from '@src/user/dto/user.dto';
-import { GetUserDto } from '@src/user/dto/out/get-user.dto';
+import { GetAllUserResponse } from '@src/user/dto/out/get-all-user.response.dto';
+import { GetUserResponse } from '@src/user/dto/out/get-user.response.dto';
 
 @ApiTags('user')
 @Controller('users')
@@ -19,8 +19,8 @@ export class UserController {
     summary: '모든 사용자 조회',
     description: '모든 사용자를 조회한다.',
   })
-  @ApiResponse({ status: 200, description: 'OK', type: GetAllUserDto })
-  async findAll(): Promise<GetAllUserDto> {
+  @ApiResponse({ status: 200, description: 'OK', type: GetAllUserResponse })
+  async findAll(): Promise<GetAllUserResponse> {
     const users = await this.userService.findAll();
     return {
       users: users.map((user) => UserDto.from(user)),
@@ -36,9 +36,9 @@ export class UserController {
     name: 'id',
     description: 'User id',
   })
-  @ApiResponse({ status: 200, description: 'OK', type: GetUserDto })
+  @ApiResponse({ status: 200, description: 'OK', type: GetUserResponse })
   @ApiResponse({ status: 404, description: 'Not Found', type: HttpExceptionDto })
-  async findOne(@Param('id') id: string): Promise<GetUserDto> {
+  async findOne(@Param('id') id: string): Promise<GetUserResponse> {
     const user = await this.userService.findOne(id);
     return UserDto.from(user);
   }

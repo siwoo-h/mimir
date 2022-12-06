@@ -18,10 +18,10 @@ export class UserDto {
   nickname: string;
 
   static from(user: User): UserDto {
+    if (!user) {
+      throw new HttpException('User not found', 404);
+    }
     try {
-      if (!user) {
-        throw new HttpException('User not found', 404);
-      }
       const userDto = plainToClass(UserDto, user);
       userDto.id = user.getId();
       userDto.email = user.getEmail();

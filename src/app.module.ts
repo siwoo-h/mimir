@@ -11,7 +11,7 @@ import { UserService } from '@src/user/user.service';
 import { User } from '@src/user/entities/user.entity';
 import config from '@src/common/config';
 import { HttpExceptionFilter } from '@src/common/filter/http-exception.filter';
-import { AuthService } from './auth/service/auth.service';
+import { AuthService } from '@src/auth/service/auth.service';
 
 @Module({
   imports: [
