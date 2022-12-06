@@ -18,6 +18,7 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "allowJs": false,
     "paths": {
       "@src/*": ["src/*"],
       "@test/*": ["test/*"],

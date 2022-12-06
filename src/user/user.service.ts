@@ -3,8 +3,9 @@ import { UniqueConstraintViolationException } from '@mikro-orm/core';
 import { EntityRepository } from '@mikro-orm/mysql';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { HttpException, Injectable } from '@nestjs/common';
-import { CreateUserDto } from '@src/user/dto/create-user.dto';
-import { UpdateUserDto } from '@src/user/dto/update-user.dto';
+
+import { CreateUserDto } from '@src/user/dto/in/create-user.dto';
+import { UpdateUserDto } from '@src/user/dto/in/update-user.dto';
 import { User } from '@src/user/entities/user.entity';
 import { ConfigService } from '@nestjs/config';
 import { ServerConfig } from '@src/common/config';
@@ -40,12 +41,12 @@ export class UserService {
     }
   }
 
-  findAll() {
-    return `This action returns all user`;
+  findAll(): Promise<User[]> {
+    return this.userRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id: string): Promise<User> {
+    return this.userRepository.findOne({ id });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

@@ -1,23 +1,39 @@
-import { MikroOrmModule } from '@mikro-orm/nestjs';
+import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserController } from '@src/user/user.controller';
-import { UserService } from '@src/user/user.service';
-import { User } from '@src/user/entities/user.entity';
+import request from 'supertest';
+import { TestModule } from '@test/test.module';
 
 describe('UserController', () => {
-  let controller: UserController;
+  let app: INestApplication;
+  let connection: any;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [MikroOrmModule.forFeature([User])],
-      controllers: [UserController],
-      providers: [UserService],
+      imports: [TestModule],
     }).compile();
 
-    controller = module.get<UserController>(UserController);
+    app = module.createNestApplication();
+    await app.init();
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  beforeEach(() => {
+    connection = request(app.getHttpServer());
+  });
+
+  afterAll(() => {
+    app.close();
+  });
+
+  describe('GET', () => {
+    test('/users', async () => {
+      const response = await connection.get('/users').expect(200);
+      expect(response.body).toHaveProperty('users');
+    });
+
+    test('/users/:id', async () => {
+      const userId = 'some-id';
+      const response = await connection.get(`/users/${userId}`);
+      expect(response).toBeDefined();
+    });
   });
 });
