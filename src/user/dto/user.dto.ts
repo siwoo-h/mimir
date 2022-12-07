@@ -7,15 +7,15 @@ import { User } from '@src/user/entities/user.entity';
 export class UserDto {
   @Expose()
   @ApiProperty({ description: 'User DB id', uniqueItems: true })
-  id: string;
+  readonly id: string;
 
   @Expose()
   @ApiProperty({ description: '이메일', uniqueItems: true })
-  email: string;
+  readonly email: string;
 
   @Expose()
   @ApiProperty({ description: '닉네임', uniqueItems: true })
-  nickname: string;
+  readonly nickname: string;
 
   static from(user: User): UserDto {
     if (!user) {
