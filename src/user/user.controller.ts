@@ -23,7 +23,7 @@ export class UserController {
   async findAll(): Promise<GetAllUserResponse> {
     const users = await this.userService.findAll();
     return {
-      users: users.map((user) => UserDto.from(user)),
+      users: users.map((user) => user.getUser()),
     };
   }
 
@@ -40,7 +40,7 @@ export class UserController {
   @ApiResponse({ status: 404, description: 'Not Found', type: HttpExceptionDto })
   async findOne(@Param('id') id: string): Promise<GetUserResponse> {
     const user = await this.userService.findOne(id);
-    return UserDto.from(user);
+    return user.getUser();
   }
 
   @Patch(':id')

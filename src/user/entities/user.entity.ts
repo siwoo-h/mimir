@@ -1,6 +1,7 @@
 import { v4 } from 'uuid';
 import { Entity, PrimaryKey, Property, types } from '@mikro-orm/core';
 import { ApiProperty } from '@nestjs/swagger';
+import { UserDto } from '@src/user/dto/user.dto';
 
 @Entity()
 export class User {
@@ -36,6 +37,14 @@ export class User {
     this.email = email;
     this.nickname = nickname;
     this.password = password;
+  }
+
+  getUser(): UserDto {
+    return {
+      id: this.id,
+      email: this.email,
+      nickname: this.nickname,
+    };
   }
 
   getId(): string {
