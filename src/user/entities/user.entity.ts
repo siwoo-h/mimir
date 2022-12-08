@@ -7,15 +7,15 @@ import { UserDto } from '@src/user/dto/user.dto';
 export class User {
   @ApiProperty({ description: 'uuid' })
   @PrimaryKey({ type: types.uuid, nullable: false })
-  private id: string = v4();
+  readonly id: string = v4();
 
   @ApiProperty({ description: 'email' })
   @Property({ type: types.string, length: 255, unique: true })
-  private email!: string;
+  readonly email!: string;
 
   @ApiProperty({ description: 'nickname' })
   @Property({ type: types.string, length: 255, unique: true })
-  private nickname!: string;
+  readonly nickname!: string;
 
   @ApiProperty({ description: 'password' })
   @Property({ hidden: true, type: types.string, length: 255 })
@@ -37,26 +37,6 @@ export class User {
     this.email = email;
     this.nickname = nickname;
     this.password = password;
-  }
-
-  getUser(): UserDto {
-    return {
-      id: this.id,
-      email: this.email,
-      nickname: this.nickname,
-    };
-  }
-
-  getId(): string {
-    return this.id;
-  }
-
-  getEmail(): string {
-    return this.email;
-  }
-
-  getNickname(): string {
-    return this.nickname;
   }
 
   getPassword(): string {

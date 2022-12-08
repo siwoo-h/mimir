@@ -19,7 +19,7 @@ export class AppController {
   @ApiResponse({ status: 201, description: 'Created', type: PostUserResponse })
   async createUser(@Body() createUserDto: CreateUserDto): Promise<PostUserResponse> {
     const user = await this.authService.create(createUserDto);
-    return { id: user.getId() };
+    return { id: user.id };
   }
 
   @Post('sign-in')

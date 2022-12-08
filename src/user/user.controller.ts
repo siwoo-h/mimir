@@ -22,9 +22,7 @@ export class UserController {
   @ApiResponse({ status: 200, description: 'OK', type: GetAllUserResponse })
   async findAll(): Promise<GetAllUserResponse> {
     const users = await this.userService.findAll();
-    return {
-      users: users.map((user) => user.getUser()),
-    };
+    return { users };
   }
 
   @Get(':id')
@@ -39,8 +37,7 @@ export class UserController {
   @ApiResponse({ status: 200, description: 'OK', type: GetUserResponse })
   @ApiResponse({ status: 404, description: 'Not Found', type: HttpExceptionDto })
   async findOne(@Param('id') id: string): Promise<GetUserResponse> {
-    const user = await this.userService.findOne(id);
-    return user.getUser();
+    return this.userService.findOne(id);
   }
 
   @Patch(':id')
