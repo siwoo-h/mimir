@@ -5,7 +5,6 @@ import { HttpExceptionDto } from '@src/common/dto/http-exception.dto';
 
 import { UserService } from '@src/user/user.service';
 import { UpdateUserDto } from '@src/user/dto/in/update-user.dto';
-import { UserDto } from '@src/user/dto/user.dto';
 import { GetAllUserResponse } from '@src/user/dto/out/get-all-user.response.dto';
 import { GetUserResponse } from '@src/user/dto/out/get-user.response.dto';
 

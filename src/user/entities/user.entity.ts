@@ -1,7 +1,6 @@
 import { v4 } from 'uuid';
 import { Entity, PrimaryKey, Property, types } from '@mikro-orm/core';
 import { ApiProperty } from '@nestjs/swagger';
-import { UserDto } from '@src/user/dto/user.dto';
 
 @Entity()
 export class User {
@@ -25,11 +24,11 @@ export class User {
   @Property({ hidden: true })
   private registeredAt: Date = new Date();
 
-  @ApiProperty({ description: 'updatedAt(hidden)' })
+  @ApiProperty({ description: 'updatedAt' })
   @Property({ hidden: true, onUpdate: () => new Date() })
   private updatedAt: Date = new Date();
 
-  @ApiProperty({ description: 'disabledAt(hidden)' })
+  @ApiProperty({ description: 'disabledAt' })
   @Property({ hidden: true, nullable: true })
   private disabledAt?: Date;
 
