@@ -5,6 +5,7 @@ import { AppController } from '@src/app.controller';
 import { ArticleModule } from '@src/article/article.module';
 import { CommentModule } from '@src/comment/comment.module';
 import { UserModule } from '@src/user/user.module';
+import { AuthService } from '@src/auth/service/auth.service';
 import { UserService } from '@src/user/user.service';
 import { User } from '@src/user/entities/user.entity';
 import config from '@src/common/config';
@@ -22,6 +23,6 @@ import config from '@src/common/config';
     CommentModule,
   ],
   controllers: [AppController],
-  providers: [UserService],
+  providers: [AuthService, UserService],
 })
 export class TestModule {}
