@@ -36,12 +36,4 @@ describe('UserController', () => {
       expect(response).toBeDefined();
     });
   });
-
-  describe('POST', () => {
-    test('/sign-up', async () => {
-      const user = { email: 'new-user@test.com', nickname: 'new-user', password: 'new-user' };
-      const response = await connection.post('/sign-up').send(user).expect(201);
-      expect(response.body).toHaveProperty('id');
-    });
-  });
 });
