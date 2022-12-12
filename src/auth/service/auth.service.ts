@@ -44,8 +44,7 @@ export class AuthService {
 
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.userService.findByEmail(email);
-    const password = user.getPassword();
-    if (user && password === pass) {
+    if (user && user.getPassword() === pass) {
       return user;
     }
     return null;
@@ -58,19 +57,12 @@ export class AuthService {
 
   private hashString(target: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      crypto.pbkdf2(
-        target,
-        this.serverConfig.passwordSalt,
-        140137,
-        64,
-        'sha512',
-        (error: Error, derivedKey: Buffer) => {
-          if (error) {
-            return reject(error);
-          }
-          resolve(derivedKey.toString('base64'));
+      crypto.pbkdf2(target, this.serverConfig.passwordSalt, 140137, 64, 'sha512', (error: Error, derivedKey: Buffer) => {
+        if (error) {
+          return reject(error);
         }
-      );
+        resolve(derivedKey.toString('base64'));
+      });
     });
   }
 }

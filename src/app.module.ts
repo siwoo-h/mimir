@@ -2,6 +2,7 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
+import { JwtService } from '@nestjs/jwt';
 
 import { AppController } from '@src/app.controller';
 import { ArticleModule } from '@src/article/article.module';
@@ -27,6 +28,7 @@ import { AuthService } from '@src/auth/service/auth.service';
   ],
   controllers: [AppController],
   providers: [
+    JwtService,
     AuthService,
     UserService,
     {
