@@ -12,7 +12,11 @@ export interface ServerConfig {
   host: string;
   port: number;
   originDomain: string;
+}
+
+export interface AuthConfig {
   passwordSalt: string;
+  jwtSecret: string;
 }
 
 export interface DatabaseConfig {
@@ -34,7 +38,10 @@ export default () => ({
     host: process.env.SERVER_HOST || 'localhost',
     port: parseInt(process.env.SERVER_PORT, 10) || 3000,
     originDomain: process.env.ORIGIN_DOMAIN || 'http://localhost:3000',
+  },
+  auth: {
     passwordSalt: process.env.AUTH_SALT || 'mimir',
+    jwtSecret: process.env.JWT_SECRET || null,
   },
   database: {
     host: process.env.DB_HOST || 'localhost',

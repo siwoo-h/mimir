@@ -7,19 +7,19 @@ import { ConfigService } from '@nestjs/config';
 
 import { CreateUserDto } from '@src/auth/dto/in/create-user.dto';
 import { User } from '@src/user/entities/user.entity';
-import { ServerConfig } from '@src/common/config';
+import { AuthConfig } from '@src/common/config';
 import { UserService } from '@src/user/user.service';
 
 @Injectable()
 export class AuthService {
-  private serverConfig: ServerConfig;
+  private authConfig: AuthConfig;
   constructor(
     @InjectRepository(User)
     private readonly userRepository: EntityRepository<User>,
     private readonly configService: ConfigService,
     private readonly userService: UserService
   ) {
-    this.serverConfig = this.configService.get<ServerConfig>('server');
+    this.authConfig = this.configService.get<AuthConfig>('auth');
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -58,7 +58,7 @@ export class AuthService {
 
   private hashString(target: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      crypto.pbkdf2(target, this.serverConfig.passwordSalt, 140137, 64, 'sha512', (error: Error, derivedKey: Buffer) => {
+      crypto.pbkdf2(target, this.authConfig.passwordSalt, 140137, 64, 'sha512', (error: Error, derivedKey: Buffer) => {
         if (error) {
           return reject(error);
         }
