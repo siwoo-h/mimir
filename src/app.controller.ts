@@ -30,9 +30,10 @@ export class AppController {
     if (!user) {
       throw new HttpException({ message: 'Invalid account' }, 400);
     }
-    const payload = { userEmail: user.userEmail, sub: user.userId };
+    const payload = { email: user.email, sub: user.id };
     return {
-      access_token: this.jwtService.sign(payload),
+      expiresIn: 3600,
+      accessToken: this.jwtService.sign(payload),
     };
   }
 }
