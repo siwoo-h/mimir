@@ -6,12 +6,11 @@ import { CreateUserDto } from '@src/auth/dto/in/create-user.dto';
 import { PostSignInDto } from '@src/auth/dto/in/post-sign-in.dto';
 import { AuthService } from '@src/auth/service/auth.service';
 import { PostUserResponse } from '@src/user/dto/out/post-user.response.dto';
-import { UserService } from '@src/user/user.service';
 
 @ApiTags('/')
 @Controller()
 export class AppController {
-  constructor(private jwtService: JwtService, private readonly authService: AuthService, private readonly userService: UserService) {}
+  constructor(private jwtService: JwtService, private readonly authService: AuthService) {}
 
   @Post('sign-up')
   @ApiOperation({ summary: '회원가입', description: '회원가입' })
