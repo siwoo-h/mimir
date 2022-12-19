@@ -10,7 +10,7 @@ import { CommentModule } from '@src/comment/comment.module';
 import { UserModule } from '@src/user/user.module';
 import { UserService } from '@src/user/user.service';
 import { User } from '@src/user/entities/user.entity';
-import config from '@src/common/config';
+import config, { AuthConfig } from '@src/common/config';
 import { HttpExceptionFilter } from '@src/common/filter/http-exception.filter';
 import { AuthService } from '@src/auth/service/auth.service';
 
@@ -22,12 +22,13 @@ import { AuthService } from '@src/auth/service/auth.service';
     }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => {
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        const authConfig = configService.get<AuthConfig>('auth');
         return {
-          secret: configService.get<string>('JWT_SECRET'),
+          secret: authConfig.jwtSecret,
         };
       },
-      inject: [ConfigService],
     }),
     MikroOrmModule.forRoot(),
     MikroOrmModule.forFeature([User]),
