@@ -27,7 +27,7 @@ export class AuthService {
       const { email, nickname, password } = createUserDto;
       const isUsedEmail = await this.isEmailUsed(email);
       if (isUsedEmail) {
-        throw new HttpException('Email already registered', 400);
+        throw new HttpException({ message: 'Email already registered' }, 400);
       }
       const hashedPassword = await this.hashString(password);
       const user = new User(email, nickname, hashedPassword);
@@ -36,7 +36,7 @@ export class AuthService {
       return user;
     } catch (error) {
       if (error instanceof UniqueConstraintViolationException) {
-        throw new HttpException(error.message, 400);
+        throw new HttpException({ message: error.message }, 400);
       }
       throw error;
     }
