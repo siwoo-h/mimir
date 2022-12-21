@@ -4,6 +4,7 @@ import { EntityRepository } from '@mikro-orm/mysql';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { HttpException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 
 import { CreateUserDto } from '@src/auth/dto/in/create-user.dto';
 import { User } from '@src/user/entities/user.entity';
@@ -17,7 +18,8 @@ export class AuthService {
     @InjectRepository(User)
     private readonly userRepository: EntityRepository<User>,
     private readonly configService: ConfigService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private jwtService: JwtService
   ) {
     this.authConfig = this.configService.get<AuthConfig>('auth');
   }
@@ -49,6 +51,13 @@ export class AuthService {
       return user;
     }
     return null;
+  }
+
+  async login(user: any) {
+    const payload = { username: user.username, sub: user.userId };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 
   private async isEmailUsed(email: string): Promise<Boolean> {
