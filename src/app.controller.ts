@@ -6,6 +6,7 @@ import { CreateUserDto } from '@src/auth/dto/in/create-user.dto';
 import { PostSignInDto } from '@src/auth/dto/in/post-sign-in.dto';
 import { AuthService } from '@src/auth/service/auth.service';
 import { PostUserResponse } from '@src/user/dto/out/post-user.response.dto';
+import { LocalAuthGuard } from '@src/common/guard/local-auth.guard';
 
 @ApiTags('/')
 @Controller()
@@ -24,15 +25,12 @@ export class AppController {
   @Post('sign-in')
   @ApiOperation({ summary: '로그인', description: '로그인' })
   @ApiBody({ type: PostSignInDto })
+  @UseGuards(LocalAuthGuard)
   async signIn(@Body() postSignInDto: PostSignInDto): Promise<any> {
     const user = await this.authService.validateUser(postSignInDto.email, postSignInDto.password);
     if (!user) {
       throw new HttpException({ message: 'Invalid account' }, 400);
     }
-    const payload = { email: user.email, sub: user.id };
-    return {
-      expiresIn: 3600,
-      accessToken: this.jwtService.sign(payload),
-    };
+    return this.authService.login(user);
   }
 }
