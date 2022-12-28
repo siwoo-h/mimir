@@ -1,7 +1,5 @@
 import * as crypto from 'crypto';
 import { UniqueConstraintViolationException } from '@mikro-orm/core';
-import { EntityRepository } from '@mikro-orm/mysql';
-import { InjectRepository } from '@mikro-orm/nestjs';
 import { HttpException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -14,13 +12,7 @@ import { UserService } from '@src/user/user.service';
 @Injectable()
 export class AuthService {
   private authConfig: AuthConfig;
-  constructor(
-    @InjectRepository(User)
-    private readonly userRepository: EntityRepository<User>,
-    private readonly configService: ConfigService,
-    private readonly userService: UserService,
-    private jwtService: JwtService
-  ) {
+  constructor(private readonly configService: ConfigService, private readonly userService: UserService, private jwtService: JwtService) {
     this.authConfig = this.configService.get<AuthConfig>('auth');
   }
 
@@ -32,9 +24,7 @@ export class AuthService {
         throw new HttpException({ message: 'Email already registered' }, 400);
       }
       const hashedPassword = await this.hashString(password);
-      const user = new User(email, nickname, hashedPassword);
-      await this.userRepository.persistAndFlush(user);
-
+      const user = await this.userService.create(email, nickname, hashedPassword);
       return user;
     } catch (error) {
       if (error instanceof UniqueConstraintViolationException) {
@@ -61,7 +51,7 @@ export class AuthService {
   }
 
   private async isEmailUsed(email: string): Promise<Boolean> {
-    const user = await this.userRepository.findOne({ email });
+    const user = await this.userService.findByEmail(email);
     return !!user;
   }
 
