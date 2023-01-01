@@ -1,7 +1,7 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 
 import { AppController } from '@src/app.controller';
@@ -13,6 +13,8 @@ import { User } from '@src/user/entities/user.entity';
 import config, { AuthConfig } from '@src/common/config';
 import { HttpExceptionFilter } from '@src/common/filter/http-exception.filter';
 import { AuthService } from '@src/auth/service/auth.service';
+import { JwtAuthGuard } from './auth/guard/local-auth.guard';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -35,6 +37,7 @@ import { AuthService } from '@src/auth/service/auth.service';
     ArticleModule,
     UserModule,
     CommentModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
@@ -44,6 +47,10 @@ import { AuthService } from '@src/auth/service/auth.service';
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
     },
   ],
 })
