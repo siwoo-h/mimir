@@ -34,14 +34,14 @@ export default () => ({
     host: process.env.SERVER_HOST || 'localhost',
     port: parseInt(process.env.SERVER_PORT, 10) || 3000,
     originDomain: process.env.ORIGIN_DOMAIN || 'http://localhost:3000',
-    passwordSalt: process.env.AUTH_SALT || 'mimir',
+    passwordSalt: process.env.AUTH_SALT,
   },
   database: {
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT, 10) || 3306,
-    username: process.env.DB_USERNAME || 'mimir',
-    password: process.env.DB_PASSWORD || 'mimirpw',
-    database: process.env.DB_NAME || 'mimir',
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
   },
   swagger: {
     username: process.env.SWAGGER_USERNAME,
