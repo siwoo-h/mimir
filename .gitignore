@@ -35,7 +35,8 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # DB
-mysql
+database/mysql/*
+!database/mysql/initdb.d
 
 # documentation
 documentation/*
