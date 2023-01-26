@@ -18,7 +18,7 @@ export class User {
 
   @ApiProperty({ description: 'password' })
   @Property({ hidden: true, type: types.string, length: 255 })
-  private password!: string;
+  readonly password!: string;
 
   @ApiProperty({ description: 'registeredAt' })
   @Property({ hidden: true })
