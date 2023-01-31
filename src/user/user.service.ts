@@ -12,7 +12,7 @@ export class UserService {
     private readonly userRepository: EntityRepository<User>
   ) {}
 
-  async create(email: string, nickname: string, password: string) {
+  async create({ email, nickname, password }) {
     const user = new User(email, nickname, password);
     await this.userRepository.persistAndFlush(user);
     return user;
