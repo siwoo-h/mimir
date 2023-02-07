@@ -48,10 +48,6 @@ import { AuthModule } from './auth/auth.module';
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
     },
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
   ],
 })
 export class AppModule {}
