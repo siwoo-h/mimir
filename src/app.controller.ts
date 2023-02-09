@@ -7,6 +7,7 @@ import { CreateUserDto } from '@src/auth/dto/in/create-user.dto';
 import { PostSignInDto } from '@src/auth/dto/in/post-sign-in.dto';
 import { AuthService } from '@src/auth/service/auth.service';
 import { PostUserResponse } from '@src/user/dto/out/post-user.response.dto';
+import { LocalStrategy } from './auth/local.strategy';
 
 @ApiTags('/')
 @Controller()
@@ -25,7 +26,7 @@ export class AppController {
   @Post('sign-in')
   @ApiOperation({ summary: '로그인', description: '로그인' })
   @ApiBody({ type: PostSignInDto })
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(LocalStrategy)
   async signIn(@Body() postSignInDto: PostSignInDto): Promise<any> {
     const user = await this.authService.validateUser(postSignInDto.email, postSignInDto.password);
     if (!user) {
