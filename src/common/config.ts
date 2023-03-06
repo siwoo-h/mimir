@@ -17,6 +17,7 @@ export interface ServerConfig {
 export interface AuthConfig {
   passwordSalt: string;
   jwtSecret: string;
+  jwtExpiresIn: string;
 }
 
 export interface DatabaseConfig {
@@ -42,6 +43,7 @@ export default () => ({
   auth: {
     passwordSalt: process.env.AUTH_SALT,
     jwtSecret: process.env.JWT_SECRET,
+    jwtExpiresIn: process.env.JWT_EXPIRES_IN || 1000 * 60 * 60 * 1,
   },
   database: {
     host: process.env.DB_HOST || 'localhost',

@@ -1,18 +1,21 @@
 import { Body, Controller, HttpException, Post, UseGuards } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
-import { AuthGuard } from '@nestjs/passport';
+import { ConfigService } from '@nestjs/config';
 
+import { AuthConfig } from '@src/common/config';
+import { PostUserResponse } from '@src/user/dto/out/post-user.response.dto';
 import { CreateUserDto } from '@src/auth/dto/in/create-user.dto';
 import { PostSignInDto } from '@src/auth/dto/in/post-sign-in.dto';
 import { AuthService } from '@src/auth/service/auth.service';
-import { PostUserResponse } from '@src/user/dto/out/post-user.response.dto';
-import { LocalStrategy } from './auth/local.strategy';
 
 @ApiTags('/')
 @Controller()
 export class AppController {
-  constructor(private jwtService: JwtService, private readonly authService: AuthService) {}
+  private authConfig: AuthConfig;
+  constructor(private jwtService: JwtService, private readonly configService: ConfigService, private readonly authService: AuthService) {
+    this.authConfig = this.configService.get<AuthConfig>('auth');
+  }
 
   @Post('sign-up')
   @ApiOperation({ summary: '회원가입', description: '회원가입' })
@@ -26,12 +29,15 @@ export class AppController {
   @Post('sign-in')
   @ApiOperation({ summary: '로그인', description: '로그인' })
   @ApiBody({ type: PostSignInDto })
-  @UseGuards(LocalStrategy)
   async signIn(@Body() postSignInDto: PostSignInDto): Promise<any> {
     const user = await this.authService.validateUser(postSignInDto.email, postSignInDto.password);
     if (!user) {
       throw new HttpException({ message: 'Invalid account' }, 400);
     }
-    return this.authService.login(user);
+
+    const { id, email, nickname } = user;
+    const payload = { id, email, nickname };
+    const accessToken = this.jwtService.sign(payload, { secret: this.authConfig.jwtSecret, expiresIn: this.authConfig.jwtExpiresIn });
+    return { accessToken };
   }
 }
