@@ -35,9 +35,6 @@ export class AppController {
       throw new HttpException({ message: 'Invalid account' }, 400);
     }
 
-    const { id, email, nickname } = user;
-    const payload = { id, email, nickname };
-    const accessToken = this.jwtService.sign(payload, { secret: this.authConfig.jwtSecret, expiresIn: this.authConfig.jwtExpiresIn });
-    return { accessToken };
+    return this.authService.login(user);
   }
 }

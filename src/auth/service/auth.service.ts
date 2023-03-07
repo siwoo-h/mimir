@@ -43,11 +43,11 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any) {
-    const payload = { nickname: user.nickname, password: user.password };
-    const accessToken = this.jwtService.sign(payload);
+  async login(user: User) {
+    const { id, email, nickname } = user;
+    const payload = { id, email, nickname };
+    const accessToken = this.jwtService.sign(payload, { secret: this.authConfig.jwtSecret, expiresIn: this.authConfig.jwtExpiresIn });
     return {
-      expiresIn: 3600,
       accessToken,
     };
   }
